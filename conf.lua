@@ -1,0 +1,9 @@
+function love.conf(t)
+	t.title = "SuperSprite"
+	t.author = "William Park"
+	t.screen.width = 888
+    t.screen.height = 683
+    t.release = false
+    t.console = false
+    t.identity = "SuperSprite"
+end
