@@ -15,8 +15,8 @@ SuperSprite
 All files are stored in %appdata%. To access this simply type "%appdata%" without the quotes into your start bar search. (Windows).
 
 - Exported files are located at:
->"%appdata%/LOVE/SuperSprite/export"
+	"%appdata%/LOVE/SuperSprite/export"
 - Files you wish to import must be placed in:
-> "%appdata%/LOVE/SuperSprite/import"
+	"%appdata%/LOVE/SuperSprite/import"
 
 In the applications current state only supports frames that are 16x16. If you don't follow this the application WILL crash.
