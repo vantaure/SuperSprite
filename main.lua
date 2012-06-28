@@ -128,6 +128,110 @@ function love.load()
 end
 
 --------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+
+function love.keypressed(key)
+	-- Keyboard shortcuts for switching pages.
+	if key == "q" then page = "Edit" end
+	if key == "w" then page = "Options" end
+	if key == "e" then page = "Animation" end
+	if key == "r" then page = "Import" end
+
+	-- Keyboard shortcuts for simple functions
+	if key == "o" then
+		onionskin = not onionskin
+		buttons.onionskin:Toggle()
+	end
+	if key == "g" then 
+		settings.showgrid = not settings.showgrid
+		buttons.togg_grid:Toggle()
+	end
+
+	-- Keyboard shortcut to rotate along symmetry options.
+	if key == "s" then
+		if v_sym == false and h_sym == false then
+			v_sym = true h_sym = false
+			buttons.togg_vsym.toggle = true
+			buttons.togg_hsym.toggle = false
+		elseif
+			v_sym == true and h_sym == false then v_sym = false h_sym = true
+			buttons.togg_vsym.toggle = false
+			buttons.togg_hsym.toggle = true
+		elseif
+			v_sym == false and h_sym == true then v_sym = true h_sym = true
+			buttons.togg_vsym.toggle = true
+			buttons.togg_hsym.toggle = true
+		elseif
+			v_sym == true and h_sym == true then v_sym = false h_sym = false
+			buttons.togg_vsym.toggle = false
+			buttons.togg_hsym.toggle = false
+		end
+	end
+
+	-- Animation Control Shortcuts
+	if key == "left" then
+		if love.keyboard.isDown("lctrl") then
+			currentFrame = 1
+		else
+			if currentFrame ~= 1 then
+				currentFrame = currentFrame - 1
+			end
+		end
+	end
+
+	if key == "right" then
+		if love.keyboard.isDown("lctrl") then
+				currentFrame = #frames
+		else
+			if currentFrame ~= #frames then
+					currentFrame = currentFrame + 1
+			end
+		end
+	end
+
+	if key == "return" or key == "kpenter" then
+		if love.keyboard.isDown("lctrl") then
+			table.insert(frames, currentFrame+1, Grid(32, 109, size_x, size_y, grid_size, currentFrame+1))
+			for k, v in pairs(framev.frames) do
+				if v.frame > currentFrame then
+					v.frame = v.frame + 1
+					v.x = v.x + 46
+				end
+			end
+			table.insert(framev.frames,currentFrame + 1, FramePreview(framev.x + framev.frames[currentFrame].x + 14 , framev.y + 17, currentFrame+1))
+			if #framev.frames > 16 then
+				for k, v in pairs(framev.frames) do
+					v.x = v.x - 46
+				end
+			end
+			currentFrame = currentFrame+1
+		else
+			for k, v in pairs(frames) do
+				if v.frame > currentFrame then
+					v.frame = v.frame + 1
+				end
+			end
+			table.insert(frames, Grid(32, 109, size_x, size_y, grid_size, #frames +1))
+			table.insert(framev.frames, FramePreview(framev.x + framev.frames[#framev.frames].x + 14 , framev.y + 17, #frames))
+			if #framev.frames > 16 then
+				for k, v in pairs(framev.frames) do
+					v.x = v.x - 46
+				end
+			end
+			currentFrame = #frames
+		end
+	end
+end
+
+
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
 
 function love.mousepressed(x, y, button)
 
