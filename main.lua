@@ -34,12 +34,12 @@ function love.load()
 	size_x = 16
 	size_y = 16
 	grid_size = 32
-	zoom = 10
+	zoom = 1
 
 	-- Set up variables for import settings.
 	import_width = 16
 	import_height = 16
-	import_zoom = 1
+	import_zoom = 10
 
 	-- Set up a table for our window height and width for ease of access.
 	window = {height = love.graphics.getHeight(), width = love.graphics.getWidth()}
@@ -105,8 +105,8 @@ function love.load()
 
 		-- Import Buttons
 		import 		= 	Button(610, 375 + 80, img_button_200, "Import Image"),
-		imp_m_zoom 	= 	Button(610, 407 + 80, img_button_88, "-Zoom"),
-		imp_a_zoom 	= 	Button(722, 407 + 80, img_button_88, "+Zoom"),
+		imp_m_zoom 	= 	Button(610, 407 + 80, img_button_88, "Coming"),
+		imp_a_zoom 	= 	Button(722, 407 + 80, img_button_88, "Soon"),
 		frame_m_width 	= 	Button(610, 439 + 80, img_button_88, "-Width"),
 		frame_a_width	= 	Button(722, 439 + 80, img_button_88, "+Width"),
 		frame_m_height = 	Button(610, 471 + 80, img_button_88, "-Height"),
@@ -583,13 +583,21 @@ function love.update()
 		elseif buttons.imp_m_zoom:isPressed() then	
 		elseif buttons.imp_a_zoom:isPressed() then	
 		elseif buttons.frame_m_width:isPressed() then
-			import_width = import_width - 1
+			if import_width ~=1 then
+				import_width = import_width - 1
+			end
 		elseif buttons.frame_a_width:isPressed() then
+			if import_width ~=16 then
 			import_width = import_width + 1
+			end
 		elseif buttons.frame_m_height:isPressed() then
-			import_height = import_height - 1
+			if import_height ~= 1 then
+				import_height = import_height - 1
+			end
 		elseif buttons.frame_a_height:isPressed() then
-			import_height = import_height + 1
+			if import_height ~= 16 then
+				import_height = import_height + 1
+			end
 		end
 	end
 end
@@ -740,9 +748,24 @@ function love.draw()
 		love.graphics.print("Zoom defines the num of pixels a single pixel is.", 574, 603)
 
 		love.graphics.setColor(95, 95, 95, 255)
+		love.graphics.print(import_zoom, 705, 495)
+
+		love.graphics.setColor(95, 95, 95, 255)
 		love.graphics.print(import_width, 705, 525)
 
 		love.graphics.setColor(95, 95, 95, 255)
 		love.graphics.print(import_height, 705, 557)
+
+		if import_width > size_x and import_height > size_y then
+			love.graphics.setColor(255, 95, 95, 255)
+			love.graphics.print("Warning! Canvas too small!", 640, 440)
+		elseif import_width > size_x then
+			love.graphics.setColor(255, 95, 95, 255)
+			love.graphics.print("Warning! Canvas too small, make wider!", 600, 440)
+		elseif import_height > size_y then
+			love.graphics.setColor(255, 95, 95, 255)
+			love.graphics.print("Warning! Canvas too small, make taller!", 600, 440)
+		end
+
 	end
 end
