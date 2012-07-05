@@ -64,6 +64,9 @@ function Button:draw()
         if mouseHover(self.x, self.y, self.width, self.height) then
             love.graphics.setColor(255,255,255,100)
             love.graphics.draw(self.image, self.x, self.y)
+        else
+            love.graphics.setColor(255,255,255,80)
+            love.graphics.draw(self.image, self.x, self.y)
         end
     elseif self.image == img_prev_arrow or self.image == img_next_arrow then
         love.graphics.draw(self.image, self.x, self.y)
