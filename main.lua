@@ -36,6 +36,11 @@ function love.load()
 	grid_size = 32
 	zoom = 10
 
+	-- Set up variables for import settings.
+	import_width = 16
+	import_height = 16
+	import_zoom = 1
+
 	-- Set up a table for our window height and width for ease of access.
 	window = {height = love.graphics.getHeight(), width = love.graphics.getWidth()}
 
@@ -573,12 +578,18 @@ function love.update()
 			page = "Animation"
 		elseif buttons.import:isPressed() then
 			if FBrowser.selected then
-				import_image(FBrowser.selected, 16, 16)
+				import_image(FBrowser.selected, import_width, import_height)
 			end
-		elseif buttons.imp_m_zoom:isPressed() then
-
-		elseif buttons.imp_a_zoom:isPressed() then
-
+		elseif buttons.imp_m_zoom:isPressed() then	
+		elseif buttons.imp_a_zoom:isPressed() then	
+		elseif buttons.frame_m_width:isPressed() then
+			import_width = import_width - 1
+		elseif buttons.frame_a_width:isPressed() then
+			import_width = import_width + 1
+		elseif buttons.frame_m_height:isPressed() then
+			import_height = import_height - 1
+		elseif buttons.frame_a_height:isPressed() then
+			import_height = import_height + 1
 		end
 	end
 end
@@ -727,5 +738,11 @@ function love.draw()
 		love.graphics.setColor(95, 95, 95, 255)
 		love.graphics.print("Note: All options are relative to a single frame.", 578, 588)
 		love.graphics.print("Zoom defines the num of pixels a single pixel is.", 574, 603)
+
+		love.graphics.setColor(95, 95, 95, 255)
+		love.graphics.print(import_width, 705, 525)
+
+		love.graphics.setColor(95, 95, 95, 255)
+		love.graphics.print(import_height, 705, 557)
 	end
 end
