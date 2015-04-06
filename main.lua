@@ -123,10 +123,10 @@ function love.load()
 
 	-- Create needed folders that may not exist if the user has not run the program before, else skip.
 	if not love.filesystem.isDirectory("import") then
-		love.filesystem.mkdir("import")
+		love.filesystem.createDirectory("import")
 	end
 	if not love.filesystem.isDirectory("export") then
-		love.filesystem.mkdir("export")
+		love.filesystem.createDirectory("export")
 	end
 
 	FBrowser = FileBrowser(564,110, "import", {"png"})

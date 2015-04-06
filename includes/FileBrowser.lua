@@ -32,7 +32,7 @@ end
 
 function FileBrowser:FindFiles()
 	if self:IsValidDir(self.directory) then
-		local files = love.filesystem.enumerate(self.directory)
+		local files = love.filesystem.getDirectoryItems(self.directory)
 		if files then
 			local validfiles = {}
 			for _, name in pairs(files) do
